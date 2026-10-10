@@ -561,9 +561,15 @@
 
   <main>
     <section class="hero" id="home">
-      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=85')"></div>
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=85')"></div>
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2000&q=85')"></div>
+      <!-- Hero carousel: realistic electronics, embedded systems, IoT and security project photography -->
+      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Electronics circuit board and components"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Cybersecurity and digital technology"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Technology team collaborating on a project"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Engineer working with electronic equipment"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Practical engineering and prototype development"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Electronics and instrumentation workbench"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1563770660941-10a63607739e?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Electronic devices and circuit components"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=2000&q=85')" role="img" aria-label="Industrial technology and automation equipment"></div>
 
       <div class="container hero-content">
         <span class="hero-chip">💡 Ideas for your next project</span>
@@ -586,6 +592,11 @@
           <button class="hero-dot active" aria-label="Show slide 1" data-slide="0"></button>
           <button class="hero-dot" aria-label="Show slide 2" data-slide="1"></button>
           <button class="hero-dot" aria-label="Show slide 3" data-slide="2"></button>
+          <button class="hero-dot" aria-label="Show slide 4" data-slide="3"></button>
+          <button class="hero-dot" aria-label="Show slide 5" data-slide="4"></button>
+          <button class="hero-dot" aria-label="Show slide 6" data-slide="5"></button>
+          <button class="hero-dot" aria-label="Show slide 7" data-slide="6"></button>
+          <button class="hero-dot" aria-label="Show slide 8" data-slide="7"></button>
         </div>
       </div>
     </section>
@@ -864,9 +875,9 @@
     <div class="modal no-match-modal">
       <button class="modal-close" id="closeNoMatch" aria-label="Close no matching projects message">×</button>
       <div class="modal-content">
-        <div class="modal-symbol">🔎</div>
+        <div class="modal-symbol" id="noMatchSymbol">🔎</div>
         <h2 id="noMatchTitle">No matching projects found</h2>
-        <p>
+        <p id="noMatchMessage">
           We couldn't find a project matching your search. No worries — tell us
           what you really want, and include any features or requirements you have in mind.
         </p>
@@ -874,7 +885,7 @@
           <button class="btn btn-primary" id="tellUsBtn">Tell Us What You Want ↗</button>
           <button class="btn btn-outline" id="keepSearchingBtn">Change My Search</button>
         </div>
-        <p class="modal-hint">You can close this message and adjust your filters at any time.</p>
+        <p class="modal-hint" id="noMatchHint">You can close this message and adjust your filters at any time.</p>
       </div>
     </div>
   </div>
@@ -1188,14 +1199,46 @@
           </article>`;
       }).join("");
 
-      showMoreBtn.hidden = results.length <= visibleLimit;
-      showMoreBtn.textContent = `Show More Projects (${results.length - visibleLimit} remaining) ↓`;
+      // Keep the button visible at zero so the user can request a custom idea.
+      // Clamp the remaining count to zero; it must never become negative.
+      const remainingProjects = Math.max(0, results.length - visibleLimit);
+      showMoreBtn.hidden = false;
+      showMoreBtn.textContent = `Show More Projects (${remainingProjects} remaining) ↓`;
+      showMoreBtn.setAttribute("aria-label", `Show more projects, ${remainingProjects} remaining`);
       $$("#projectGrid [data-save]").forEach(button => button.addEventListener("click", () => toggleSaved(button.dataset.save)));
       $$("#projectGrid [data-details]").forEach(button => button.addEventListener("click", () => openProjectDetails(button.dataset.details)));
       $$("#projectGrid [data-build]").forEach(button => button.addEventListener("click", () => requestBuild(button.dataset.build)));
     }
 
+    function setNoMatchModalContent(mode = "no-match") {
+      const title = $("#noMatchTitle");
+      const message = $("#noMatchMessage");
+      const symbol = $("#noMatchSymbol");
+      const hint = $("#noMatchHint");
+      const keepSearchingBtn = $("#keepSearchingBtn");
+
+      if (mode === "no-more") {
+        symbol.textContent = "✅";
+        title.textContent = "No More Projects Remaining";
+        message.textContent = "You've reached the end of the current project list. Tell us what you want — do you have a project idea or special features in mind? Use the button below to send your request through our existing enquiry form by WhatsApp or email.";
+        keepSearchingBtn.textContent = "Close";
+        hint.textContent = "You can still request a custom project using the existing enquiry form.";
+      } else {
+        symbol.textContent = "🔎";
+        title.textContent = "No matching projects found";
+        message.textContent = "We couldn't find a project matching your search. No worries — tell us what you really want, and include any features or requirements you have in mind.";
+        keepSearchingBtn.textContent = "Change My Search";
+        hint.textContent = "You can close this message and adjust your filters at any time.";
+      }
+    }
+
+    function showNoMoreProjectsModal() {
+      setNoMatchModalContent("no-more");
+      openModal(noMatchModal);
+    }
+
     function maybeShowNoMatchModal() {
+      setNoMatchModalContent("no-match");
       const queryKey = JSON.stringify([
         searchInput.value.trim(), facultyFilter.value, departmentFilter.value, showSavedOnly
       ]);
@@ -1462,7 +1505,15 @@
 
     $("#clearFiltersBtn").addEventListener("click", resetSearch);
     showMoreBtn.addEventListener("click", () => {
-      visibleLimit += 9;
+      const results = getFilteredProjects();
+      const remainingProjects = Math.max(0, results.length - visibleLimit);
+
+      if (remainingProjects === 0) {
+        showNoMoreProjectsModal();
+        return;
+      }
+
+      visibleLimit = Math.min(visibleLimit + 9, results.length);
       renderProjects();
     });
     $("#showSavedBtn").addEventListener("click", () => {
@@ -1567,6 +1618,7 @@
     setInterval(() => setSlide((activeSlide + 1) % slides.length), 6500);
 
     // Initialise.
+    setNoMatchModalContent("no-match");
     $("#year").textContent = new Date().getFullYear();
     populateFilters();
     renderFacultyCards();
