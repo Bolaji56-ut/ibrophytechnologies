@@ -674,8 +674,11 @@
 
         <div style="height:24px"></div>
         <div class="project-grid" id="projectGrid" aria-live="polite"></div>
-        <div style="display:flex;justify-content:center;margin-top:28px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:28px">
           <button class="btn btn-outline" id="showMoreBtn">Show More Projects ↓</button>
+          <button class="btn btn-primary" id="customProjectPromptBtn" type="button" hidden>
+            Have any other thing or project in mind? Kindly reach out to us ↗
+          </button>
         </div>
       </div>
     </section>
@@ -1205,6 +1208,11 @@
       showMoreBtn.hidden = false;
       showMoreBtn.textContent = `Show More Projects (${remainingProjects} remaining) ↓`;
       showMoreBtn.setAttribute("aria-label", `Show more projects, ${remainingProjects} remaining`);
+
+      // Offer a custom-project enquiry directly beneath Show More when no projects remain.
+      const customProjectPromptBtn = $("#customProjectPromptBtn");
+      customProjectPromptBtn.hidden = remainingProjects !== 0;
+      customProjectPromptBtn.onclick = () => openCustomModal();
       $$("#projectGrid [data-save]").forEach(button => button.addEventListener("click", () => toggleSaved(button.dataset.save)));
       $$("#projectGrid [data-details]").forEach(button => button.addEventListener("click", () => openProjectDetails(button.dataset.details)));
       $$("#projectGrid [data-build]").forEach(button => button.addEventListener("click", () => requestBuild(button.dataset.build)));
