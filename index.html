@@ -772,7 +772,7 @@
 
         <form class="form-card" id="enquiryForm">
           <h3>Project enquiry form</h3>
-          <p>Complete the details below, then send your enquiry through WhatsApp or email.</p>
+          <p>Complete the details below, then send your enquiry through WhatsApp.</p>
 
           <div class="form-grid">
             <div class="form-group">
@@ -822,7 +822,7 @@
             <button class="btn btn-whatsapp" type="button" id="sendWhatsAppBtn">Send via WhatsApp ↗</button>
            
           </div>
-          <p class="form-note">This form opens your selected messaging or email app. It does not submit your information to a server.</p>
+          <p class="form-note">This form opens your selected messaging app. It does not submit your information to a server.</p>
         </form>
       </div>
     </section>
@@ -927,9 +927,9 @@
           </div>
           <div class="form-actions">
             <button class="btn btn-whatsapp" type="submit">Continue to WhatsApp ↗</button>
-            <button class="btn btn-outline" type="button" id="quickEmailBtn">Continue to Email ↗</button>
+           
           </div>
-          <p class="form-note">Your message opens in WhatsApp or your email app; it is not sent automatically.</p>
+          <p class="form-note">Your message opens in WhatsApp; it is not sent automatically.</p>
         </form>
       </div>
     </div>
@@ -1238,7 +1238,7 @@
       if (mode === "no-more") {
         symbol.textContent = "✅";
         title.textContent = "No More Projects Remaining";
-        message.textContent = "You've reached the end of the current project list. Tell us what you want — do you have a project idea or special features in mind? Use the button below to send your request through our existing enquiry form by WhatsApp or email.";
+        message.textContent = "You've reached the end of the current project list. Tell us what you want — do you have a project idea or special features in mind? Use the button below to send your request through our existing enquiry form by WhatsApp.";
         keepSearchingBtn.textContent = "Close";
         hint.textContent = "You can still request a custom project using the existing enquiry form.";
       } else {
