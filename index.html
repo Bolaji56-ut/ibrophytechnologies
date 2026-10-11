@@ -821,7 +821,7 @@
 
           <div class="form-actions">
             <button class="btn btn-whatsapp" type="button" id="sendWhatsAppBtn">Send via WhatsApp ↗</button>
-            <button class="btn btn-outline" type="button" id="sendviaemail">Send via Email ↗</button>
+            <button class="btn btn-outline" type="button" id="sendEmailBtn">Send via Email ↗</button>
           </div>
           <p class="form-note">This form opens your selected messaging or email app. It does not submit your information to a server.</p>
         </form>
@@ -939,26 +939,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-function sendviaemail() {
-
-            const email = "bolajiibrophy@gmail.com";
-
-            const subject = "Enquiry - IBROPHY Technologies";
-
-            const message =
-                "Hello IBROPHY Technologies,\n\n" +
-                "I would like to make an enquiry about your services.\n\n" +
-                "Please get back to me when you can.\n\n" +
-                "Thank you.";
-
-            const gmailURL =
-                "https://mail.google.com/mail/?view=cm&fs=1" +
-                "&to=" + encodeURIComponent(email) +
-                "&su=" + encodeURIComponent(subject) +
-                "&body=" + encodeURIComponent(message);
-
-            window.open(gmailURL, "_blank");
-        }
 
 
     
