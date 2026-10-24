@@ -8,10 +8,10 @@
   <meta name="description" content="Explore practical undergraduate project ideas across engineering, sciences, computing, business and more. Save ideas or send IBROPHY Technologies a custom project enquiry.">
   <meta name="color-scheme" content="light">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="IBROPHY Technologies | Student Project Hub">
-  <meta property="og:description" content="Explore student project ideas, save your favourites and discuss custom project requirements.">
+  <meta property="og:title" content="IBROPHY Technologies | Project Hub">
+  <meta property="og:description" content="Explore project ideas, save your favourites and discuss custom project requirements.">
   <meta name="twitter:card" content="summary">
-  <title>IBROPHY Technologies | Student Project Hub</title>
+  <title>IBROPHY Technologies | Imagine || Innovate || Create</title>
 
   <style>
     :root {
@@ -631,7 +631,7 @@
         <div class="section-heading">
           <div>
             <span class="eyebrow">Project directory</span>
-            <h2>Explore student project ideas</h2>
+            <h2>Explore project ideas</h2>
             <p>Start with popular project concepts, then filter by faculty, programme or keyword.</p>
           </div>
           <button type="button" class="btn btn-outline" id="showSavedBtn">🔖 View Saved Projects</button>
@@ -842,7 +842,7 @@
                 <circle cx="8" cy="30" r="2.2" fill="#FFB94D"/><circle cx="32" cy="30" r="2.2" fill="#FFB94D"/>
               </svg>
             </span>
-            <span class="brand-copy"><strong>IBROPHY Technologies</strong><span>Student Project Hub</span></span>
+            <span class="brand-copy"><strong>IBROPHY Technologies</strong><span>Imagine || Innovate || Create</span></span>
           </a>
           <p>Explore academic project ideas across disciplines and start a conversation about your project requirements.</p>
         </div>
@@ -1365,7 +1365,7 @@
       return [
         "Hello IBROPHY Technologies,",
         "",
-        "I would like to make an enquiry about this student project:",
+        "I would like to make an enquiry about this project:",
         "Project: " + project.title,
         "Faculty: " + project.faculty,
         "Department: " + project.department,
@@ -1416,7 +1416,7 @@
       return [
         "Hello IBROPHY Technologies,",
         "",
-        "I would like to make a student project enquiry.",
+        "I would like to make a project enquiry.",
         "Name: " + data.name,
         "Email: " + data.email,
         data.faculty ? "Faculty: " + data.faculty : "",
@@ -1445,7 +1445,7 @@
       return [
         "Hello IBROPHY Technologies,",
         "",
-        "I would like to request a custom student project.",
+        "I would like to request a custom project.",
         "Name: " + data.name,
         "Email: " + data.email,
         data.course ? "Faculty / department / course: " + data.course : "",
@@ -1467,7 +1467,7 @@
     function sendQuickEmail() {
       const data = getQuickFormData();
       if (!data) return;
-      const subject = "Custom Student Project Enquiry - IBROPHY Technologies";
+      const subject = "Custom Project Enquiry - IBROPHY Technologies";
       saveEnquiryRecord({ name: data.name, email: data.email, department: data.course, project: data.idea }, "quick");
       const url = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(quickMessage(data));
@@ -1623,7 +1623,7 @@
       if (!data) return;
       saveEnquiryRecord({ ...data }, "main");
       const url = "mailto:" + CONTACT_EMAIL +
-        "?subject=" + encodeURIComponent("Student Project Enquiry - " + data.project) +
+        "?subject=" + encodeURIComponent("Project Enquiry - " + data.project) +
         "&body=" + encodeURIComponent(enquiryMessage(data));
       window.location.href = url;
     });
